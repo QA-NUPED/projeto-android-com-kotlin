@@ -30,7 +30,7 @@ jobs:
         id: kover
         uses: mi-kas/kover-report@v1
         with:
-          path: ${{ github.workspace }}/app/main/reports/kover/htmlRelease/index.html
+          path: ///home/runner/work/projeto-android-com-kotlin/projeto-android-com-kotlin/app/build/reports/kover/htmlRelease/index.html
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Code Coverage
           update-comment: true
