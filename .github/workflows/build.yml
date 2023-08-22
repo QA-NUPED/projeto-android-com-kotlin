@@ -21,13 +21,13 @@ jobs:
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
       - name: Generate kover coverage report
-        run: ./gradlew koverXmlReport
+        run: ./gradlew koverHtmlReport
 
       - name: Add coverage report to PR
         id: kover
         uses: mi-kas/kover-report@v1
         with:
-          path: ${{ github.workspace }}/app/build/reports/kover/report.xml
+          path: ${{ github.workspace }}/app/build/reports/kover/html/index.html
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Code Coverage
           update-comment: true
