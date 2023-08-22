@@ -1,7 +1,11 @@
 name: Measure coverage
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -22,7 +26,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Generate kover coverage report
         run: ./gradlew koverXmlReportRelease
-
       - name: Add coverage report to PR
         id: kover
         uses: mi-kas/kover-report@v1
