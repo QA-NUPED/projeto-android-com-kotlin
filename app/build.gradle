@@ -62,7 +62,14 @@ koverReport {
     filters {
         excludes {
             // excludes class by fully-qualified JVM class name, wildcards '*' and '?' are available
-            classes("com.*")
+            classes(
+                "*Fragment",
+                "*Fragment\$*",
+                "*Activity",
+                "*Activity\$*",
+                "*.databinding.*",
+                "*.BuildConfig"
+            )
         }
     }
     
@@ -72,7 +79,17 @@ koverReport {
         filters {
             excludes {
                 // excludes class by fully-qualified JVM class name, wildcards '*' and '?' are available
-                classes("com.example.*")
+                classes(
+                        "*Fragment",
+                        "*Fragment\$*",
+                        "*Activity",
+                        "*Activity\$*",
+                        "*.databinding.*",
+                        "*.BuildConfig",
+
+                        // excludes debug classes
+                        "*.DebugUtil"
+                )
             }
         }
         
@@ -88,7 +105,17 @@ koverReport {
                 // exclusions for XML reports
                 excludes {
                     // excludes class by fully-qualified JVM class name, wildcards '*' and '?' are available
-                    classes("com.example.*")
+                    classes(
+                        "*Fragment",
+                        "*Fragment\$*",
+                        "*Activity",
+                        "*Activity\$*",
+                        "*.databinding.*",
+                        "*.BuildConfig",
+
+                        // excludes debug classes
+                        "*.DebugUtil"
+                )
                     // excludes all classes located in specified package and it subpackages, wildcards '*' and '?' are available
                     packages("com.another.subpackage")
                     // excludes all classes and functions, annotated by specified annotations (with BINARY or RUNTIME AnnotationRetention), wildcards '*' and '?' are available
