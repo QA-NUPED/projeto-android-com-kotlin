@@ -21,10 +21,13 @@ jobs:
         run: chmod +x gradlew  # Concede permissões de execução
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Run Tests
-        run: ./gradlew test
+      - name: Generate kover coverage report
+        run: ./gradlew koverXmlReportRelease
+      - name: Add coverage report to PR
+        id: kover
+        uses: mi-kas/kover-report@v1
         with:
-          path: ${{ github.workspace }}build/test-results/.
+          path: ${{ github.workspace }}/app/build/reports/kover/report.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Code Coverage
           update-comment: true
