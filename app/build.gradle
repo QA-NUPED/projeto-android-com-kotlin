@@ -4,6 +4,15 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id("org.jetbrains.kotlinx.kover") version "0.7.3"
+    id( "org.sonarqube" ) versão "4.2.1.3168"
+}
+
+sonar {
+  propriedades {
+    propriedade( "sonar.projectKey" , "QA-NUPED_projeto-android-com-kotlin" )
+    propriedade( "sonar.organização" , "qa-nuped" )
+    propriedade( "sonar.host.url" , "https://sonarcloud.io" )
+  }
 }
 
 android {
