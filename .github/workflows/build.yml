@@ -2,8 +2,6 @@ name: Measure coverage
 
 on:
   push:
-    branches:
-      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -34,6 +32,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Code Coverage
           update-comment: true
-          min-coverage-overall: 0
-          min-coverage-changed-files: 0
+          min-coverage-overall: 10
+          min-coverage-changed-files: 80
           coverage-counter-type: LINE
