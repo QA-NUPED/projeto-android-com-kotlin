@@ -1,6 +1,9 @@
 name: Measure coverage
 
 on:
+  push:
+    branches:
+      - test/sonar2
   pull_request:
     types: [opened, synchronize, reopened]
 
