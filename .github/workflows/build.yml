@@ -23,11 +23,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Run Tests
         run: ./gradlew test
-      # - name: Generate kover coverage report
-      #   run: ./gradlew koverXmlReportRelease
-      # - name: Add coverage report to PR
-      #   id: kover
-      #   uses: mi-kas/kover-report@v1
         with:
           path: ${{ github.workspace }}build/test-results/.
           token: ${{ secrets.GITHUB_TOKEN }}
