@@ -46,86 +46,86 @@ class ProdutosTelasTests {
         onView(withId(R.id.activity_formulario_produto_botao_salvar)).check(matches(isDisplayed()))
     }
 
-//     @Test
-//     fun deveSerCapazDePreencherOsCamposESalvar() {
-//         // act
-//         clicaNoFAB()
+    @Test
+    fun deveSerCapazDePreencherOsCamposESalvar() {
+        // act
+        clicaNoFAB()
 
-//         preencheCamposDoFormulario(
-//             nome = "Banana",
-//             descricao = "Prata",
-//             valor = "6.99"
-//         )
+        preencheCamposDoFormulario(
+            nome = "Banana",
+            descricao = "Prata",
+            valor = "6.99"
+        )
 
-//         //Assert
-//         clicaEmSalvar()
+        //Assert
+        clicaEmSalvar()
 
-//         onView(withText("Banana")).check(matches(isDisplayed()))
-//     }
+        onView(withText("Banana")).check(matches(isDisplayed()))
+    }
 
-//     @Test
-//     fun deveSerCapazDeEditarUmProduto() {
+    @Test
+    fun deveSerCapazDeEditarUmProduto() {
 
-//         //Arrange
-//         clicaNoFAB()
+        //Arrange
+        clicaNoFAB()
 
-//         preencheCamposDoFormulario(
-//             nome = "Banana nanica",
-//             descricao = "da feira",
-//             valor = "5.99"
-//         )
+        preencheCamposDoFormulario(
+            nome = "Banana nanica",
+            descricao = "da feira",
+            valor = "5.99"
+        )
 
-//         clicaEmSalvar()
+        clicaEmSalvar()
 
-//         onView(withText("Banana nanica"))
-//             .perform(click())
+        onView(withText("Banana nanica"))
+            .perform(click())
 
-//         //Act
-//         onView(withId(R.id.menu_detalhes_produto_editar))
-//             .perform(click())
+        //Act
+        onView(withId(R.id.menu_detalhes_produto_editar))
+            .perform(click())
 
-//         preencheCamposDoFormulario(
-//             nome = "Banana prata",
-//             descricao = "da vendinha",
-//             valor = "3.99"
-//         )
+        preencheCamposDoFormulario(
+            nome = "Banana prata",
+            descricao = "da vendinha",
+            valor = "3.99"
+        )
 
-//         //Assert
-//         clicaEmSalvar()
+        //Assert
+        clicaEmSalvar()
 
-//         onView(withText("Banana prata"))
-//             .check(matches(isDisplayed()))
-//     }
+        onView(withText("Banana prata"))
+            .check(matches(isDisplayed()))
+    }
 
-//     private fun clicaEmSalvar() {
-//         onView(withId(R.id.activity_formulario_produto_botao_salvar))
-//             .perform(click())
-//     }
+    private fun clicaEmSalvar() {
+        onView(withId(R.id.activity_formulario_produto_botao_salvar))
+            .perform(click())
+    }
 
-//     private fun clicaNoFAB() {
-//         onView(withId(R.id.activity_lista_produtos_fab))
-//             .perform(click())
-//     }
+    private fun clicaNoFAB() {
+        onView(withId(R.id.activity_lista_produtos_fab))
+            .perform(click())
+    }
 
-//     private fun preencheCamposDoFormulario(
-//         nome: String,
-//         descricao: String,
-//         valor: String
-//     ) {
-//         onView(withId(R.id.activity_formulario_produto_nome))
-//             .perform(
-//                 replaceText(nome),
-//                 closeSoftKeyboard()
-//             )
-//         onView(withId(R.id.activity_formulario_produto_descricao))
-//             .perform(
-//                 replaceText(descricao),
-//                 closeSoftKeyboard()
-//             )
-//         onView(withId(R.id.activity_formulario_produto_valor))
-//             .perform(
-//                 replaceText(valor),
-//                 closeSoftKeyboard()
-//             )
-//     }
-// }
+    private fun preencheCamposDoFormulario(
+        nome: String,
+        descricao: String,
+        valor: String
+    ) {
+        onView(withId(R.id.activity_formulario_produto_nome))
+            .perform(
+                replaceText(nome),
+                closeSoftKeyboard()
+            )
+        onView(withId(R.id.activity_formulario_produto_descricao))
+            .perform(
+                replaceText(descricao),
+                closeSoftKeyboard()
+            )
+        onView(withId(R.id.activity_formulario_produto_valor))
+            .perform(
+                replaceText(valor),
+                closeSoftKeyboard()
+            )
+    }
+}
