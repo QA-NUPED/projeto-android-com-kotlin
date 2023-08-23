@@ -8,10 +8,10 @@ plugins {
 }
 
 sonar {
-  propriedades {
-    propriedade( "sonar.projectKey" , "QA-NUPED_projeto-android-com-kotlin" )
-    propriedade( "sonar.organização" , "qa-nuped" )
-    propriedade( "sonar.host.url" , "https://sonarcloud.io" )
+  properties {
+    property("sonar.projectKey", "QA-NUPED_projeto-android-com-kotlin")
+    property("sonar.organization", "qa-nuped")
+    property("sonar.host.url", "https://sonarcloud.io")
   }
 }
 
