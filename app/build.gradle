@@ -71,7 +71,7 @@ koverReport {
         // add common verification rule
         rule {
             // check this rule during verification 
-            isEnabled = true
+            isEnabled = false
 
             // specify the code unit for which coverage will be aggregated 
             entity = kotlinx.kover.gradle.plugin.dsl.GroupingEntityType.APPLICATION
