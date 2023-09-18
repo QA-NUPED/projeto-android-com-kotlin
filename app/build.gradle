@@ -34,9 +34,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "DATABASE_NAME", '"orgs.db"')
-
-            koverXmlReportRelease.enabled = true // Ative a geração do relatório XML
-            koverHtmlReportRelease.enabled = true // Ative a geração do relatório HTML
         }
 
         debug {
@@ -47,7 +44,6 @@ android {
             initWith(buildTypes.debug)
             buildConfigField("String", "DATABASE_NAME", '"orgs_teste.db"')
         }
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -145,8 +141,7 @@ koverReport {
             charset = "UTF-8"
           
             //  generate a HTML report when running the `check` task
-            // onCheck = false
-            onCheck = true
+            onCheck = false
 
             // directory for HTML report
             setReportDir(layout.buildDirectory.dir("my-project-report/html-result"))
