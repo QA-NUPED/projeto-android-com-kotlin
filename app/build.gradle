@@ -100,7 +100,7 @@ koverReport {
 
             // XML report file
             //setReportFile(layout.buildDirectory.file("///home/runner/work/projeto-android-com-kotlin/projeto-android-com-kotlin/app/build/reports/kover/report.xml"))
-            setReportFile(layout.buildDirectory.file("${{ github.workspace }}/app/build/reports/kover/report.xml"))
+            setReportFile(layout.buildDirectory.file("///home/runner/work/projeto-android-com-kotlin/projeto-android-com-kotlin/app/build/reports/kover/report.xml"))
             // overriding filters only for the XML report 
             filters {
                 // exclusions for XML reports
