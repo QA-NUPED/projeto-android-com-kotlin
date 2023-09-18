@@ -175,6 +175,34 @@ koverReport {
         }
     }
 }
+// Remover daqui 
+ task calculateCoveragePercentage {
+    doLast {
+        def jacocoXml = file("$buildDir/jacoco/testDebugUnitTestCoverage.xml")
+        if (jacocoXml.exists()) {
+            def coverageReport = new XmlSlurper().parse(jacocoXml)
+            def coveragePercentage = coverageReport.'@line-rate'.toFloat() * 100
+            def color = 'orange'
+            
+            if (coveragePercentage <= 50) {
+                color = 'red'
+            } else if (coveragePercentage > 80) {
+                color = 'green'
+            }
+            
+            // Atualizar badge ou fazer outra ação com base na porcentagem e na cor
+            println("Coverage Percentage: ${coveragePercentage.round(2)}%")
+            println("Color: $color")
+            
+            // Você pode adicionar código para atualizar um badge aqui
+        } else {
+            println("JaCoCo XML report not found.")
+        }
+    }
+}
+
+calculateCoveragePercentage.dependsOn collectCoverage
+// Até aqui, caso nao funcione!!! 
 
 dependencies {
     def room_version = "2.4.2"
