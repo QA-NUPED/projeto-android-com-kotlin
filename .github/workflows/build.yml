@@ -35,3 +35,62 @@ jobs:
           min-coverage-changed-files: 80
           coverage-counter-type: LINE
 
+name: Android Code Coverage
+
+on:
+  push:
+    branches:
+      - main  # Atualize para o nome da sua branch principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Build and Test
+      run: ./gradlew clean build test
+
+    - name: Generate JaCoCo Coverage Report
+      run: ./gradlew jacocoTestReport
+
+    - name: Calculate Coverage Percentage
+      id: coverage
+      run: |
+        xmlstarlet sel -t -v "/report/counter[@type='LINE']/@covered" \
+          -o '/' -v "/report/counter[@type='LINE']/@missed" \
+          build/reports/jacoco/testDebugUnitTestReport.xml > coverage.txt
+        covered=$(cut -d'/' -f1 coverage.txt)
+        missed=$(cut -d'/' -f2 coverage.txt)
+        total=$(($covered + $missed))
+        percentage=$(awk "BEGIN { pc=100*${covered}/${total}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
+        echo "::set-output name=coverage::$percentage"
+
+    - name: Set Coverage Badge
+      if: success()
+      run: |
+        coverage=$(/bin/cat coverage.txt)
+        color=orange
+        if ((coverage <= 50)); then
+          color=red
+        elif ((coverage > 80)); then
+          color=green
+        fi
+        curl "https://img.shields.io/badge/coverage-${coverage}%25-${color}" > badge.svg
+        echo "Coverage Percentage: ${coverage}%"
+        echo "Color: $color"
+        echo "::set-output name=badge::badge.svg"
+
+    - name: Upload Badge
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-badge
+        path: badge.svg
