@@ -1,36 +1,77 @@
-name: Measure coverage
+name: Verificar Cobertura de Testes Unitários
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types:
+      - opened
+      - synchronize
 
 jobs:
-  build:
+  check_coverage:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK
+      - name: Configurar ambiente Java
         uses: actions/setup-java@v2
         with:
-          java-version: 11
-          distribution: 'adopt'
-      - name: Grant execute permission to gradlew
-        run: chmod +x gradlew  # Concede permissões de execução
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
-      - name: Generate kover coverage report
-        run: ./gradlew koverXmlReportRelease
-      - name: Add coverage report to PR
-        id: kover
-        uses: mi-kas/kover-report@v1
-        with:
-          path: ${{ github.workspace }}/app/build/reports/kover/report.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: Code Coverage
-          update-comment: true
-          min-coverage-overall: 10
-          min-coverage-changed-files: 80
-          coverage-counter-type: LINE
+          java-version: '11'
+
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Configurar Gradle
+        uses: gradle/wrapper-action@v2
+
+      - name: Conceder permissões de execução ao gradlew
+        run: chmod +x gradlew
+
+      - name: Executar testes unitários
+        run: ./gradlew test
+
+      - name: Verificar cobertura de testes
+        run: ./gradlew koverHtmlReport
+
+      - name: Analisar relatório de cobertura
+        run: |
+          coverage=$(cat build/reports/kover/html/index.html | grep -oP '(?<=<span class="percentage">)[^<]+')
+          if (( $(echo "$coverage < 80" | bc -l) )); then
+            echo "A cobertura de testes unitários é inferior a 80%. O PR não pode ser mesclado."
+            exit 1
+          fi
+
+# name: Measure coverage
+
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       pull-requests: write
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Set up JDK
+#         uses: actions/setup-java@v2
+#         with:
+#           java-version: 11
+#           distribution: 'adopt'
+#       - name: Grant execute permission to gradlew
+#         run: chmod +x gradlew  # Concede permissões de execução
+#       - name: Set up Gradle
+#         uses: gradle/gradle-build-action@v2
+#       - name: Generate kover coverage report
+#         run: ./gradlew koverXmlReportRelease
+#       - name: Add coverage report to PR
+#         id: kover
+#         uses: mi-kas/kover-report@v1
+#         with:
+#           path: ${{ github.workspace }}/app/build/reports/kover/report.xml
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           title: Code Coverage
+#           update-comment: true
+#           min-coverage-overall: 10
+#           min-coverage-changed-files: 80
+#           coverage-counter-type: LINE
