@@ -20,9 +20,7 @@ jobs:
       - uses: actions/checkout@main
       - name: Ler arquivo JSON e armazenar em variável
         id: json
-        run: |
-          OUTPUT=$(echo ./scripts/ci/coverage.json)
-          COVERAGE_REQUIRED=$(echo "$OUTPUT") >> "$GITHUB_OUTPUT"
+        run: OUTPUT=$(echo ./scripts/ci/coverage.json) >> GITHUB_OUTPUT
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
