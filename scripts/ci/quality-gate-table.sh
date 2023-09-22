@@ -4,7 +4,7 @@ PRODUCT=$("Stone Benefícios" "Giro Stone" "Acompanhamento de TPV" "Autocred" "M
 TABLE_MD="## SMB COVERAGE
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
 |---------------|-----------|-----------|------------|------------|
-| $PRODUCT  | $BRANCH % | $FUNCTIONS % | $LINES % | $TOTAL % |"
+| $PRODUCT[0]  | $BRANCH % | $FUNCTIONS % | $LINES % | $TOTAL % |"
 
 PR_COMMENT="$TABLE_MD"
 gh pr comment $PR_NUMBER --body "$PR_COMMENT"
