@@ -1,38 +1,5 @@
-COVERAGE_REQUIRED= "
-[
-    {
-        "Product": "StoneBenefits",
-        "branches": 20,
-        "class": 30,
-        "lines": 30
-    },
-    {
-        "Product": "GiroStone",
-        "branches": 20,
-        "class": 30,
-        "lines": 30
-    },
-    {
-        "Product": "AcompanhamentoDeTPV",
-        "branches": 20,
-        "class": 30,
-        "lines": 30
-    },
-    {
-        "Product": "Autocred",
-        "branches": 20,
-        "class": 30,
-        "lines": 30
-    },
-    {
-        "Product": "MGM",
-        "branches": 20,
-        "class": 30,
-        "lines": 30
-    }
-]
-"
-PRODUCT=$(cat "$COVERAGE_REQUIRED" | jq -r '.[].Product')
+COVERAGE_REQUIRED= "./coverage.json"
+PRODUCT=$(echo "$COVERAGE_REQUIRED" | jq -r '.[].Product')
 
 TABLE_MD="## SMB COVERAGE
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
