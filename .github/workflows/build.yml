@@ -22,7 +22,7 @@ jobs:
         id: json
         run: |
           OUTPUT=$(cat ./scripts/ci/coverage.json) 
-          echo "COVERAGE_REQUIRED=OUTPUT">> GITHUB_ENV
+          echo "COVERAGE_REQUIRED=OUTPUT" >> "GITHUB_OUTPUT"
         env:
           COVERAGE_REQUIRED: ${{ steps.json.outputs.COVERAGE_REQUIRED }}
 
