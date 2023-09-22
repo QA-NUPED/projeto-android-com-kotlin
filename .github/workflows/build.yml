@@ -17,27 +17,31 @@ jobs:
       - name: Create comment
         run: |
           echo "## Test Coverage" > coverage.md
-          echo "| Directory | Coverage | Current Branch Coverage | Status |" >> coverage.md
-          echo "|-----------|----------|-------------------------|:------:|" >> coverage.md
-          echo "| Dir 1     | 80%      | 85%                     | Pass |" >> coverage.md
-          echo "| Dir 2     | 88%      | 90%                     | Pass |" >> coverage.md
-          echo "| Dir 3     | 72%      | 75%                     | Pass |" >> coverage.md
-          echo "| Dir 4     | 85%      | 88%                     | Pass |" >> coverage.md
-          echo "| Dir 5     | 90%      | 92%                     | Pass |" >> coverage.md
+          echo "| Directory | Coverage |" >> coverage.md
+          echo "|-----------|----------|" >> coverage.md
+          echo "| Dir 1     | 80%      |" >> coverage.md
+          echo "| Dir 2     | 88%      |" >> coverage.md
+          echo "| Dir 3     | 72%      |" >> coverage.md
+          echo "| Dir 4     | 85%      |" >> coverage.md
+          echo "| Dir 5     | 90%      |" >> coverage.md
           cat coverage.md
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
 
-      - name: Calculate status and update table
-        run: |
-          currentBranchCoverage=$(echo ${{ github.event.pull_request.head.ref }} | tr -d '%')
-          sed -i "s/| Dir 1     | 80%      | 85%                     | Pass |/| Dir 1     | 80%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 80 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
-          sed -i "s/| Dir 2     | 88%      | 90%                     | Pass |/| Dir 2     | 88%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 88 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
-          sed -i "s/| Dir 3     | 72%      | 75%                     | Pass |/| Dir 3     | 72%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 72 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
-          sed -i "s/| Dir 4     | 85%      | 88%                     | Pass |/| Dir 4     | 85%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 85 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
-          sed -i "s/| Dir 5     | 90%      | 92%                     | Pass |/| Dir 5     | 90%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 90 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
-          cat coverage.md
+      # - name: Calculate status and update table
+      #   run: |
+      #     currentBranchCoverage=$(echo ${{ github.event.pull_request.head.ref }} | tr -d '%')
+      #     sed -i "s/| Dir 1     | 80%      | 85%                     | Pass |/| Dir 1     | 80%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 80 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
+      #     sed -i "s/| Dir 2     | 88%      | 90%                     | Pass |/| Dir 2     | 88%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 88 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
+      #     sed -i "s/| Dir 3     | 72%      | 75%                     | Pass |/| Dir 3     | 72%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 72 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
+      #     sed -i "s/| Dir 4     | 85%      | 88%                     | Pass |/| Dir 4     | 85%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 85 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
+      #     sed -i "s/| Dir 5     | 90%      | 92%                     | Pass |/| Dir 5     | 90%      | $currentBranchCoverage%                     | $(if [ $currentBranchCoverage -ge 90 ]; then echo 'Pass'; else echo 'Fail'; fi) |/" coverage.md
+      #     cat coverage.md
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        
