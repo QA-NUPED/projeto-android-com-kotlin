@@ -22,7 +22,7 @@ jobs:
         id: json
         run: |
           output=$(cat ./scripts/ci/coverage.json)
-          echo "json_data=output" >> "$GITHUB_OUTPUT"
+          echo "json_data=output" >> $GITHUB_OUTPUT
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
