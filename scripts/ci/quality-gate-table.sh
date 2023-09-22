@@ -1,4 +1,4 @@
-COVERAGE_REQUIRED= "./coverage.json"
+COVERAGE_REQUIRED= "coverage.json"
 PRODUCT=$(echo "$COVERAGE_REQUIRED" | jq -r '.[].Product')
 
 TABLE_MD="## SMB COVERAGE
