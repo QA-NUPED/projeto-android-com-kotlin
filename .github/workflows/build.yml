@@ -22,7 +22,7 @@ jobs:
         id: json
         run: |
           output=$(cat ./scripts/ci/coverage.json)
-          echo "::set-output name=json_content::$output"
+          echo "COVERAGE_REQUIRED=output" >> "$GITHUB_ENV"
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
