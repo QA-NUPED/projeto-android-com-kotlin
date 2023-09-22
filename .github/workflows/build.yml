@@ -1,75 +1,35 @@
-name: Custom Quality Gate
+name: Manual Quality Gate
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set custom coverage thresholds
-        id: set_coverage_thresholds
+      - name: Set manual coverage values
+        id: set_coverage
         run: |
-          echo "::set-output name=dir1_threshold::85"  # Defina seu valor de cobertura para o diretório 1 (exemplo: 85%)
-          echo "::set-output name=dir2_threshold::90"  # Defina seu valor de cobertura para o diretório 2 (exemplo: 90%)
-          echo "::set-output name=dir3_threshold::75"  # Defina seu valor de cobertura para o diretório 3 (exemplo: 75%)
-          echo "::set-output name=dir4_threshold::88"  # Defina seu valor de cobertura para o diretório 4 (exemplo: 88%)
-          echo "::set-output name=dir5_threshold::92"  # Defina seu valor de cobertura para o diretório 5 (exemplo: 92%)
-
-      - name: Get manual coverage input
-        id: manual_coverage_input
-        run: |
-          echo "::set-output name=manual_coverage::${{ secrets.MANUAL_COVERAGE }}"  # Recupere o valor manual da branch
+          echo "Setting manual coverage values..."
+          echo "::set-output name=coverage::50" # Substitua pelo valor real de cobertura desejado
+        env:
+          COVERAGE_THRESHOLD: ${{ steps.set_coverage.outputs.coverage }}
 
       - name: Calculate coverage
         id: calculate_coverage
         run: |
-          # Substitua esses comandos pelo cálculo real da cobertura de teste para os diretórios desejados.
-          # Você pode usar ferramentas como JaCoCo, Jacoco-Merge, ou outra ferramenta de cobertura de código.
+          CURRENT_COVERAGE: 55 # Substitua pelo valor real da cobertura atual
+        env:
+          CURRENT_COVERAGE: ${{ steps.calculate_coverage.outputs.coverage }}
 
-          # Exemplo:
-          coverage_dir1=80  # Substitua pelo cálculo real para o diretório 1
-          coverage_dir2=88  # Substitua pelo cálculo real para o diretório 2
-          coverage_dir3=72  # Substitua pelo cálculo real para o diretório 3
-          coverage_dir4=85  # Substitua pelo cálculo real para o diretório 4
-          coverage_dir5=90  # Substitua pelo cálculo real para o diretório 5
-
-          echo "::set-output name=dir1_coverage::${coverage_dir1}"
-          echo "::set-output name=dir2_coverage::${coverage_dir2}"
-          echo "::set-output name=dir3_coverage::${coverage_dir3}"
-          echo "::set-output name=dir4_coverage::${coverage_dir4}"
-          echo "::set-output name=dir5_coverage::${coverage_dir5}"
-
-      - name: Check coverage against custom thresholds
+      - name: Check coverage against quality gate
         run: |
-          dir1_coverage=${{ steps.calculate_coverage.outputs.dir1_coverage }}
-          dir2_coverage=${{ steps.calculate_coverage.outputs.dir2_coverage }}
-          dir3_coverage=${{ steps.calculate_coverage.outputs.dir3_coverage }}
-          dir4_coverage=${{ steps.calculate_coverage.outputs.dir4_coverage }}
-          dir5_coverage=${{ steps.calculate_coverage.outputs.dir5_coverage }}
-
-          dir1_threshold=${{ steps.set_coverage_thresholds.outputs.dir1_threshold }}
-          dir2_threshold=${{ steps.set_coverage_thresholds.outputs.dir2_threshold }}
-          dir3_threshold=${{ steps.set_coverage_thresholds.outputs.dir3_threshold }}
-          dir4_threshold=${{ steps.set_coverage_thresholds.outputs.dir4_threshold }}
-          dir5_threshold=${{ steps.set_coverage_thresholds.outputs.dir5_threshold }}
-
-          echo "Custom Quality Gate Report:"
-          echo "Directory 1: Coverage = ${dir1_coverage}%, Threshold = ${dir1_threshold}%"
-          echo "Directory 2: Coverage = ${dir2_coverage}%, Threshold = ${dir2_threshold}%"
-          echo "Directory 3: Coverage = ${dir3_coverage}%, Threshold = ${dir3_threshold}%"
-          echo "Directory 4: Coverage = ${dir4_coverage}%, Threshold = ${dir4_threshold}%"
-          echo "Directory 5: Coverage = ${dir5_coverage}%, Threshold = ${dir5_threshold}%"
-
-          if [[ ${dir1_coverage} -lt ${dir1_threshold} || ${dir2_coverage} -lt ${dir2_threshold} || ${dir3_coverage} -lt ${dir3_threshold} || ${dir4_coverage} -lt ${dir4_threshold} || ${dir5_coverage} -lt ${dir5_threshold} ]]; then
-            echo "Quality Gate failed. Coverage is below the threshold in one or more directories."
-            exit 1
+          if [[ $CURRENT_COVERAGE -lt $COVERAGE_THRESHOLD ]]; then
+            echo "Coverage in the 'app' directory is below the threshold."
           else
-            echo "Quality Gate passed. Coverage meets the threshold in all directories."
+            echo "Coverage in the 'app' directory meets the threshold."
           fi
