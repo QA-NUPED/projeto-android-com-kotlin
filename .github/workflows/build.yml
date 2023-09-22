@@ -22,7 +22,7 @@ jobs:
         id: json
         run: |
           output=$(echo ./scripts/ci/coverage.json)
-          echo "COVERAGE_REQUIRED=output" >> "$GITHUB_ENV"
+          echo "COVERAGE_REQUIRED=output" >> "$GITHUB_OUTPUT"
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
@@ -30,4 +30,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          COVERAGE_REQUIRED: ${{ steps.json.outputs.json_content }}
+          COVERAGE_REQUIRED: ${{ steps.json.outputs.COVERAGE_REQUIRED }}
