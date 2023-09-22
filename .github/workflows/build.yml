@@ -21,9 +21,10 @@ jobs:
       - name: Ler arquivo JSON e armazenar em variável
         id: json
         run: |
-          OUTPUT=$(echo ./scripts/ci/coverage.json) >> GITHUB_OUTPUT
+          OUTPUT=$(cat ./scripts/ci/coverage.json) 
+          echo "COVERAGE_REQUIRED=OUTPUT">> GITHUB_ENV
         env:
-          COVERAGE_REQUIRED: ${{ steps.json.outputs.OUTPUT }}
+          COVERAGE_REQUIRED: ${{ steps.json.outputs.COVERAGE_REQUIRED }}
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
