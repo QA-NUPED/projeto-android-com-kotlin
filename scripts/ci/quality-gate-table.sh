@@ -1,4 +1,4 @@
-PRODUCT=("Stone Benefícios" "Giro Stone" "Acompanhamento de TPV" "Autocred" "Member Get Member")
+PRODUCT=$("Stone Benefícios" "Giro Stone" "Acompanhamento de TPV" "Autocred" "Member Get Member")
 
 
 TABLE_MD="## SMB COVERAGE
