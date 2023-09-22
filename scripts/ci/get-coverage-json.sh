@@ -1,0 +1,1 @@
+OUTPUT=$(echo "./coverage.json") >> "GITHUB_OUTPUT"

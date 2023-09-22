@@ -21,7 +21,7 @@ jobs:
       - name: Ler arquivo JSON e armazenar em variável
         id: json
         run: |
-          OUTPUT=$(cat coverage.json) 
+          OUTPUT=$(echo ./scripts/ci/get-coverage-json.sh) 
           echo "COVERAGE_REQUIRED=OUTPUT" >> "GITHUB_OUTPUT"
         env:
           COVERAGE_REQUIRED: ${{ steps.json.outputs.COVERAGE_REQUIRED }}
