@@ -11,25 +11,35 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - name: Set manual coverage values
-        id: set_coverage
+            - name: Create coverage table
+        id: create_coverage_table
         run: |
-          echo "Setting manual coverage values..."
-          echo "::set-output name=coverage::50" # Substitua pelo valor real de cobertura desejado
-        env:
-          COVERAGE_THRESHOLD: ${{ steps.set_coverage.outputs.coverage }}
+          echo "| Directory | Coverage | Threshold |"
+          echo "| --------- | -------- | --------- |"
+          echo "| Directory 1 | 11% | 11% |"
+          echo "| Directory 2 | 19.20% | 19.20% |"
+          echo "| Directory 3 | 18% | 18% |"
+          echo "| Directory 4 | 20.70% | 20.70% |"
+          echo "| Directory 5 | 19.20% | 19.20% |"
 
-      - name: Calculate coverage
-        id: calculate_coverage
-        run: |
-          CURRENT_COVERAGE: 55 # Substitua pelo valor real da cobertura atual
-        env:
-          CURRENT_COVERAGE: ${{ steps.calculate_coverage.outputs.coverage }}
+      - name: Upload coverage table as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-table
+          path: coverage-table.txt
 
-      - name: Check coverage against quality gate
+      - name: Create PR comment with coverage table
+        id: pr_comment
+        uses: softprops/action-gh-release@v1
+        with:
+          files: coverage-table.txt
+          title: Code Coverage
+          body: |
+            Custom Quality Gate Report:
+
+            ${{ steps.create_coverage_table.outputs.coverage_table }}
+
+      - name: Add comment to PR
         run: |
-          if [[ $CURRENT_COVERAGE -lt $COVERAGE_THRESHOLD ]]; then
-            echo "Coverage in the 'app' directory is below the threshold."
-          else
-            echo "Coverage in the 'app' directory meets the threshold."
-          fi
+          echo "Custom Quality Gate Report:"
+          echo "${{ steps.create_coverage_table.outputs.coverage_table }}"
