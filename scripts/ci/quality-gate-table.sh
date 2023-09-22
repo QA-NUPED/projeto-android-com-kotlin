@@ -32,7 +32,7 @@ COVERAGE_REQUIRED= "
     }
 ]
 "
-PRODUCT=$(echo "$COVERAGE_REQUIRED" | jq -r '.[].Product')
+PRODUCT=$(cat "$COVERAGE_REQUIRED" | jq -r '.[].Product')
 
 TABLE_MD="## SMB COVERAGE
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
