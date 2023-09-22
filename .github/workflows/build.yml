@@ -22,7 +22,7 @@ jobs:
         id: json
         run: |
           output=$(echo ./scripts/ci/coverage.json)
-          echo "COVERAGE_REQUIRED=output" >> "$GITHUB_OUTPUT"
+          echo "$output"
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
