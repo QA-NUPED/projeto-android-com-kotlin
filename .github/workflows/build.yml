@@ -11,21 +11,17 @@ jobs:
   add_comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Add coverage report to PR
-        id: kover
-        uses: mi-kas/kover-report@v1
-        with:
-          update-comment: true
-          body: |
-            ## Test Coverage
-
-            | Directory | Coverage | Current Branch Coverage |
-            |-----------|----------|-------------------------|
-            | Dir 1     | 80%      | 85%                     |
-            | Dir 2     | 88%      | 90%                     |
-            | Dir 3     | 72%      | 75%                     |
-            | Dir 4     | 85%      | 88%                     |
-            | Dir 5     | 90%      | 92%                     |
+      - name: Create comment
+        run: |
+          echo "## Test Coverage" > coverage.md
+          echo "| Directory | Coverage | Current Branch Coverage |" >> coverage.md
+          echo "|-----------|----------|-------------------------|" >> coverage.md
+          echo "| Dir 1     | 80%      | 85%                     |" >> coverage.md
+          echo "| Dir 2     | 88%      | 90%                     |" >> coverage.md
+          echo "| Dir 3     | 72%      | 75%                     |" >> coverage.md
+          echo "| Dir 4     | 85%      | 88%                     |" >> coverage.md
+          echo "| Dir 5     | 90%      | 92%                     |" >> coverage.md
+          cat coverage.md
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
