@@ -1,45 +1,29 @@
-name: Manual Quality Gate
+name: Manual Test Coverage Comment
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
-  build:
+  add_comment:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
-      - name: Create coverage table
-        id: create_coverage_table
-        run: |
-          echo "| Directory | Coverage | Threshold |"
-          echo "| --------- | -------- | --------- |"
-          echo "| Directory 1 | 11% | 11% |"
-          echo "| Directory 2 | 19.20% | 19.20% |"
-          echo "| Directory 3 | 18% | 18% |"
-          echo "| Directory 4 | 20.70% | 20.70% |"
-          echo "| Directory 5 | 19.20% | 19.20% |"
-
-      - name: Upload coverage table as artifact
-        uses: actions/upload-artifact@v2
+      - name: Create comment
+        uses: peter-evans/create-pull-request-comment@v2
         with:
-          name: coverage-table
-          path: coverage-table.txt
-
-      - name: Create PR comment with coverage table
-        id: pr_comment
-        uses: softprops/action-gh-release@v1
-        with:
-          files: coverage-table.txt
-          title: Code Coverage
           body: |
-            Custom Quality Gate Report:
+            ## Test Coverage
 
-            ${{ steps.create_coverage_table.outputs.coverage_table }}
+            | Directory | Coverage | Current Branch Coverage |
+            |-----------|----------|-------------------------|
+            | Dir 1     | 80%      | 85%                     |
+            | Dir 2     | 88%      | 90%                     |
+            | Dir 3     | 72%      | 75%                     |
+            | Dir 4     | 85%      | 88%                     |
+            | Dir 5     | 90%      | 92%                     |
 
-      - name: Add comment to PR
-        run: |
-          echo "Custom Quality Gate Report:"
-          echo "${{ steps.create_coverage_table.outputs.coverage_table }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
