@@ -1,7 +1,7 @@
 COVERAGE_REQUIRED="coverage.json"
 
-DATA_PRODUCT=$(echo "$COVERAGE_REQUIRED" | jq -r '.[] | fromjson | .product')
-
+DATA_PRODUCT=$(echo "$COVERAGE_REQUIRED")
+printf "sua variavel é %s\n" $DATA_PRODUCT
 TABLE_MD="## SMB COVERAGE
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
 |---------------|-----------|-----------|------------|------------|
