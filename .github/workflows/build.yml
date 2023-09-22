@@ -20,8 +20,10 @@ jobs:
       - uses: actions/checkout@main
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
+        with:
+          arquivo: coverage.json
+          pasta: ./scripts/ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          COVERAGE_REQUIRED: ${{ toJSON(./scripts/ci/coverage.json) }}
