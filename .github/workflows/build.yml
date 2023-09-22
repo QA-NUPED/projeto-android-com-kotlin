@@ -21,7 +21,7 @@ jobs:
       - name: Ler arquivo JSON e armazenar em variável
         id: json
         run: |
-          output=$(cat ./scripts/ci/coverage.json)
+          output=$(echo ./scripts/ci/coverage.json)
           echo "COVERAGE_REQUIRED=output" >> "$GITHUB_ENV"
 
       - name: Create comment
