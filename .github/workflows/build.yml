@@ -21,7 +21,7 @@ jobs:
       - name: Ler arquivo JSON e armazenar em variável
         id: json
         run: |
-          json_content=$(cat ./scripts/ci/coverage.json); echo "$json_data=$json_content" >> "$GITHUB_OUTPUT"
+          json_content=$(cat ./scripts/ci/coverage.json); echo "json_data=$json_content" >> "$GITHUB_OUTPUT"
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
