@@ -21,8 +21,8 @@ jobs:
       - name: Ler arquivo JSON e armazenar em variável
         id: json
         run: |
-          output=$(echo ./scripts/ci/coverage.json)
-          echo "$output"
+          OUTPUT=$(echo ./scripts/ci/coverage.json)
+          printf "%s\n" $OUTPUT
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
