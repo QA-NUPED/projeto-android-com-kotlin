@@ -11,9 +11,11 @@ jobs:
   add_comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Create comment
-        uses: peter-evans/create-pull-request-comment@v2
+      - name: Add coverage report to PR
+        id: kover
+        uses: mi-kas/kover-report@v1
         with:
+          update-comment: true
           body: |
             ## Test Coverage
 
