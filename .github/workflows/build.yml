@@ -16,11 +16,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Acessar o segredo JSON
-        id: secrets
-        run: |
-          echo "${{ secrets.JSON_SECRET }}" > coverage.json
         
       - uses: actions/checkout@main
       - name: Create comment
@@ -29,3 +24,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          COVERAGE_REQUIRED: ${{ toJSON(./scripts/ci/coverage.json) }}
