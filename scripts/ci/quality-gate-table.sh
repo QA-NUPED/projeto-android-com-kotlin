@@ -1,7 +1,8 @@
-COVERAGE_REQUIRED=./coverage.json
+COVERAGE_REQUIRED=$(cat coverage.json)
 
 DATA_PRODUCT=$(echo "$COVERAGE_REQUIRED")
 printf "sua variavel é %s\n" $DATA_PRODUCT
+
 TABLE_MD="## SMB COVERAGE
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
 |---------------|-----------|-----------|------------|------------|
