@@ -21,7 +21,7 @@ jobs:
         id: ler-json
         run: |
           json_content=$(cat ./scripts/ci/coverage.json)
-          echo "::set-output name=json_content::$json_content"
+          echo "json_content=json_content" >> "$GITHUB_ENV"
         
       - uses: actions/checkout@main
       - name: Create comment
