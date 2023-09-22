@@ -1,43 +1,30 @@
-name: Automated Coverage Bot
+name: Manual Test Coverage Comment
 
 on:
-  issue_comment:
+  pull_request:
     types:
-      - created
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
-  update_coverage:
+  add_comment:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - name: Check for trigger keyword
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const triggerKeyword = '@bot-atualizar-cobertura';
-            const commentBody = context.payload.comment.body;
-            if (commentBody.includes(triggerKeyword)) {
-              // Execute lógica para calcular a cobertura atual
-              const currentBranchCoverage = 85; // Substitua pelo valor real da cobertura
+      - name: Create comment
+        run: |
+          echo "## Test Coverage" > coverage.md
+          echo "| Directory | Coverage | Current Branch Coverage | Status |" >> coverage.md
+          echo "|-----------|----------|-------------------------|:------:|" >> coverage.md
+          echo "| Dir 1     | 80%      | 85%                     |:white_check_mark:|" >> coverage.md
+          echo "| Dir 2     | 88%      | 90%                     |:white_check_mark:|" >> coverage.md
+          echo "| Dir 3     | 72%      | 75%                     |:white_check_mark:|" >> coverage.md
+          echo "| Dir 4     | 85%      | 88%                     |:white_check_mark:|" >> coverage.md
+          echo "| Dir 5     | 90%      | 92%                     |:white_check_mark:|" >> coverage.md
+          cat coverage.md
 
-              // Crie a nova tabela de cobertura
-              const newCoverageTable = `
-                ### Code Coverage
-
-                | Directory | Desired Coverage | Current Branch Coverage | Status |
-                |-----------|------------------|-------------------------|:------:|
-                | Dir 1     | 80%              | ${currentBranchCoverage}% | :white_check_mark: |
-                | Dir 2     | 88%              | ${currentBranchCoverage}% | :white_check_mark: |
-                | Dir 3     | 72%              | ${currentBranchCoverage}% | :white_check_mark: |
-                | Dir 4     | 85%              | ${currentBranchCoverage}% | :white_check_mark: |
-                | Dir 5     | 90%              | ${currentBranchCoverage}% | :white_check_mark: |
-              `;
-
-              // Use a API do GitHub para adicionar o comentário com a nova tabela
-              github.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.payload.issue.number,
-                body: newCoverageTable,
-              });
-            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
