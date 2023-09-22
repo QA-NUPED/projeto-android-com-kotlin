@@ -6,4 +6,5 @@ TABLE_MD="## SMB COVERAGE
 |---------------|-----------|-----------|------------|------------|
 | $PRODUCT  | $BRANCH % | $FUNCTIONS % | $LINES % | $TOTAL % |"
 
-printf "sua tabela é: %s\n" $TABLE_MD
+PR_COMMENT="$TABLE_MD"
+gh pr comment $PR_NUMBER --body "$PR_COMMENT"

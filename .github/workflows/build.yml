@@ -15,7 +15,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Create comment
-        run: sh gality-gate-table.sh
+        run:  sh ./quality-gate-table.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
