@@ -11,7 +11,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-            - name: Create coverage table
+      - name: Create coverage table
         id: create_coverage_table
         run: |
           echo "| Directory | Coverage | Threshold |"
