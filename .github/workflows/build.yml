@@ -30,4 +30,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          COVERAGE_REQUIRED: ${{  toJSON(steps.json.outputs.JSON_CONTENT) }}
+          COVERAGE_REQUIRED: ${{  toJSON(env.JSON_CONTENT) }}
