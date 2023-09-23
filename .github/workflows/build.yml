@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@main
       - name: Ler arquivo JSON e armazenar em variável
         id: report
-        run: output=$(echo ./scripts/ci/get-coverage-json.sh); echo "$COVERAGE_REQUIRED=$output" >> $GITHUB_OUTPUT
+        run: output=$(echo ./scripts/ci/get-coverage-json.sh); echo "COVERAGE_REQUIRED=$output" >> $GITHUB_OUTPUT
         env:
           COVERAGE_REQUIRED: ${{ steps.report.outputs.COVERAGE_REQUIRED }}
           
