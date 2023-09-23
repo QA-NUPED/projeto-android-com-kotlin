@@ -1,28 +1,26 @@
-{
-    "schema": [
-        {
-            "product": "Giro Stone",
-            "branches": 20,
-            "class": 30,
-            "lines": 30
-        },
-        {
-            "product": "Acompanhamento de TPV",
-            "branches": 20,
-            "class": 30,
-            "lines": 30
-        },
-        {
-            "product": "Autocred",
-            "branches": 20,
-            "class": 30,
-            "lines": 30
-        },
-        {
-            "product": "MGM",
-            "branches": 20,
-            "class": 30,
-            "lines": 30
-        }
-    ]    
-}
+[
+    {
+        "product": "Giro Stone",
+        "branches": 20,
+        "class": 30,
+        "lines": 30
+    },
+    {
+        "product": "Acompanhamento de TPV",
+        "branches": 20,
+        "class": 30,
+        "lines": 30
+    },
+    {
+        "product": "Autocred",
+        "branches": 20,
+        "class": 30,
+        "lines": 30
+    },
+    {
+        "product": "MGM",
+        "branches": 20,
+        "class": 30,
+        "lines": 30
+    }   
+]
