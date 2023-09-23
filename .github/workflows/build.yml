@@ -19,18 +19,15 @@ jobs:
         
       - uses: actions/checkout@main
       - name: Ler arquivo JSON e armazenar em variável
-        id: ler-json
-        run: |
-          json_content=$(cat ./scripts/ci/coverage.json)
-          echo "::set-output name=json_content::$json_content"
+        id: report
+        run: output=$(./scripts/ci/get-coverage-json.sh); echo "$COVERAGE_REQUIRED=$output" >> $GITHUB_OUTPUT
+        continue-on-error: true
+        env:
+          COVERAGE_REQUIRED: ${{ steps.report.outputs.COVERAGE_REQUIRED }}
 
-      - name: Usar a variável com o conteúdo JSON
-        run: |
-          echo "Conteúdo JSON: ${{ steps.ler-json.outputs.json_content }}"
-
-      # - name: Create comment
-      #   run:  sh ./scripts/ci/quality-gate-table.sh
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     GH_TOKEN: ${{ github.token }}
-      #     PR_NUMBER: ${{ github.event.pull_request.number }}
+      - name: Create comment
+        run:  sh ./scripts/ci/quality-gate-table.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
