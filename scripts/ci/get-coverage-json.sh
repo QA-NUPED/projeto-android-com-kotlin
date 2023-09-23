@@ -1,2 +1,2 @@
-OUTPUT=$(echo "./coverage.json")
+OUTPUT=$(cat ./coverage.json)
 echo "$OUTPUT"
