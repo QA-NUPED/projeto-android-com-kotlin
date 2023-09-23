@@ -21,6 +21,11 @@ jobs:
         uses: actions/checkout@v3
 
       - uses: actions/checkout@main
+      - name: Get json
+        id: json
+        run: |
+          json_content=$(cat ./scripts/ci/coverage.json)
+          echo "::set-output name=json_content::$json_content"
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
@@ -28,3 +33,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          COVERAGE_REQUIRED: ${{ steps.json.outputs.json_content }}
