@@ -20,8 +20,7 @@ jobs:
       - uses: actions/checkout@main
       - name: Coverage json
         id: json
-        run: |
-          OUTPUT=$(echo ./scripts/ci/get-coverage-json.sh); echo "COVERAGE_REQUIRED=OUTPUT" >> GITHUB_OUTPUT
+        run: OUTPUT=$(echo ./scripts/ci/get-coverage-json.sh); echo "COVERAGE_REQUIRED=OUTPUT" >> "GITHUB_OUTPUT"
         env:
           COVERAGE_REQUIRED: ${{ steps.json.outputs.COVERAGE_REQUIRED }}
 
