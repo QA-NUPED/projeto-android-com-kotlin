@@ -21,7 +21,7 @@ jobs:
       - name: Ler arquivo JSON e armazenar em variável
         id: ler-json
         run: |
-          json_content=$(cat caminho/para/seu/arquivo.json)
+          json_content=$(cat ./scripts/ci/coverage.json)
           echo "::set-output name=json_content::$json_content"
 
       - name: Usar a variável com o conteúdo JSON
