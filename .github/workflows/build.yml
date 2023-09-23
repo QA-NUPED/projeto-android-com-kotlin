@@ -20,9 +20,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - uses: actions/checkout@main
       - name: Conceder permissões de execução ao arquivo JSON
         run: chmod +x ./scripts/ci/coverage.json
-      - uses: actions/checkout@main
       - name: Ler arquivo JSON e armazenar em variável
         id: report
         run: output=$(./scripts/ci/coverage.json); echo "$COVERAGE_REQUIRED=$output" >> $GITHUB_OUTPUT
