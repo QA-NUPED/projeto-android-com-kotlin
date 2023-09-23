@@ -19,11 +19,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Set color
-        id: random-color-generator
-        run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
-        env:
-          SELECTED_COLOR: ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
 
       - uses: actions/checkout@main
       - name: Create comment
