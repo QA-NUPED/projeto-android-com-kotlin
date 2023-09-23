@@ -1,4 +1,4 @@
-COVERAGE_REQUIRED=$(cat ./coverage.json)
+#!/bin/bash
 
 PRODUCT=$(echo "$COVERAGE_REQUIRED")
 printf "sua variavel é %s\n" $DATA_PRODUCT
