@@ -19,9 +19,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Ler arquivo JSON
+        id: ler-json
         run: |
-            $SELECTED_COLOR=$(cat ./coverage.json)
-            printf "variavel %s\n"  $SELECTED_COLOR
+          json_content=$(cat caminho/do/seu/arquivo.json)
+          echo "::set-output name=json::$json_content"
       - uses: actions/checkout@main
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
@@ -29,3 +31,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          COVERAGE_REQUIRED: ${{ steps.ler-json.outputs.json }}
