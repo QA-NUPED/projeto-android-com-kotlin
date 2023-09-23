@@ -8,7 +8,7 @@ on:
       - reopened
 
 jobs:
-  add_comment:
+  get_json:
     runs-on: ubuntu-latest
 
     permissions:
@@ -23,10 +23,22 @@ jobs:
       - uses: actions/checkout@main
       - name: Ler arquivo JSON e armazenar em variável
         id: report
-        run: output=$(echo ./scripts/ci/get-coverage-json.sh); echo "COVERAGE_REQUIRED=$output" >> $GITHUB_OUTPUT
+        run: output=$(echo ./scripts/ci/get-coverage-json.sh); echo "COVERAGE_REQUIRED=$output" >> $GITHUB_ENV
         env:
           COVERAGE_REQUIRED: ${{ steps.report.outputs.COVERAGE_REQUIRED }}
-          
+
+  add_comment:
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/checkout@main
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
