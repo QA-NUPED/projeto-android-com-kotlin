@@ -1,1 +1,1 @@
-JSON_CONTENT=$(cat ./coverage.json) >> $GITHUB_OUTPUT
+JSON_CONTENT=$(cat ./coverage.json) >> $GITHUB_ENV
