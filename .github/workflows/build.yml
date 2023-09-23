@@ -20,8 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Ler arquivo JSON
-        id: ler-json
-        run: sh .scripts/ci/get-coverage-json.sh
+        run: sh ./scripts/ci/get-coverage-json.sh
 
       - uses: actions/checkout@main
       - name: Create comment
