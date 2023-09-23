@@ -1,1 +1,2 @@
-OUTPUT=$(echo "./coverage.json") >> "GITHUB_OUTPUT"
+OUTPUT=$(echo "./coverage.json")
+echo "$OUTPUT"
