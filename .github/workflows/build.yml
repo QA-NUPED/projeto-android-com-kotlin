@@ -24,8 +24,7 @@ jobs:
       - name: Get json
         id: json
         run: |
-          json_content=$(cat ./scripts/ci/coverage.json)
-          echo "JSON_CONTENT=json_content" >> $GITHUB_ENV
+          export JSON_CONTENT=$(cat ./scripts/ci/coverage.json)
 
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
@@ -33,4 +32,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          COVERAGE_REQUIRED: ${{ JSON_CONTENT }}
+          COVERAGE_REQUIRED: $JSON_CONTENT
