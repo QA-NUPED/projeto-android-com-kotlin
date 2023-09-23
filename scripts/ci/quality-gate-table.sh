@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PRODUCT=$(echo "$COVERAGE_REQUIRED")
+PRODUCT=$(echo "$JSON_CONTENT")
 printf "sua variavel é %s\n" $DATA_PRODUCT
 
 TABLE_MD="## SMB COVERAGE
