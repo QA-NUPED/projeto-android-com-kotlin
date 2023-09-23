@@ -1,7 +1,4 @@
 #!/bin/bash
-
-export $SELECTED_COLOR=$(cat ./coverage.json)
-printf "variavel %s\n"  $SELECTED_COLOR
 TABLE_MD="## Certifique que sua alteração atende o mínimo de cobertura requerido
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
 |---------------|-----------|-----------|------------|------------|

@@ -19,7 +19,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        run: |
+            $SELECTED_COLOR=$(cat ./coverage.json)
+            printf "variavel %s\n"  $SELECTED_COLOR
       - uses: actions/checkout@main
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
