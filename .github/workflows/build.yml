@@ -6,13 +6,15 @@ on:
       - opened
       - synchronize
       - reopened
-  permissions:
-      contents: read
-      pull-requests: write
 
 jobs:
   add_comment:
     runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -25,9 +27,8 @@ jobs:
         continue-on-error: true
         env:
           COVERAGE_REQUIRED: ${{ steps.report.outputs.COVERAGE_REQUIRED }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ github.token }}
           
+
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
         env:
