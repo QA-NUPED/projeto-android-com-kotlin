@@ -20,6 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Ler arquivo JSON
+        id: json
         run: sh ./scripts/ci/get-coverage-json.sh
 
       - uses: actions/checkout@main
@@ -29,4 +30,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          COVERAGE_REQUIRED: ${{ env.json_content }}
+          COVERAGE_REQUIRED: ${{ steps.json.outputs.JSON_CONTENT }}
