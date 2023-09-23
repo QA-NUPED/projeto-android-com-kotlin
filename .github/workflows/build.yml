@@ -21,9 +21,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Ler arquivo JSON
         id: ler-json
-        run: |
-          json_content=$(cat ./coverage.json)
-          echo "json_content=$json_content" >> $GITHUB_ENV
+        run: get-coverage-json.sh
+        
       - uses: actions/checkout@main
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
