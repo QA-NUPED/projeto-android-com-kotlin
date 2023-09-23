@@ -19,13 +19,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Set color
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+        env:
+          SELECTED_COLOR: ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
 
       - uses: actions/checkout@main
-      - name: Get json
-        id: json
-        run: |
-          export JSON_CONTENT=$(cat ./scripts/ci/coverage.json)
-
       - name: Create comment
         run:  sh ./scripts/ci/quality-gate-table.sh
         env:

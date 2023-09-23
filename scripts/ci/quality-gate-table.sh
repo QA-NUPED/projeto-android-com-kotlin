@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# COVERAGE_REQUIRED=“coverage.json”
-# PRODUCT=$(echo “$COVERAGE_REQUIRED” | jq -r ‘.[].Product’)
+printf "%s\n" $SELECTED_COLOR
 TABLE_MD="## Certifique que sua alteração atende o mínimo de cobertura requerido
 | **Product** | **Branches** | **Class** | **Lines** | **TOTAL** |
 |---------------|-----------|-----------|------------|------------|
