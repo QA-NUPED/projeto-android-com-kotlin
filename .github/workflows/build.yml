@@ -22,7 +22,7 @@ jobs:
       - name: Ler arquivo JSON
         id: ler-json
         run: |
-          json_content=$(cat caminho/do/seu/arquivo.json)
+          json_content=$(cat ./coverage.json)
           echo "::set-output name=json::$json_content"
       - uses: actions/checkout@main
       - name: Create comment
