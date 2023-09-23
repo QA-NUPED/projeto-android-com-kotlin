@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Conceder permissões de execução ao arquivo JSON
+        run: chmod +x ./scripts/ci/coverage.json
         
       - uses: actions/checkout@main
       - name: Ler arquivo JSON e armazenar em variável
