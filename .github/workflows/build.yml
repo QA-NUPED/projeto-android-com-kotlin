@@ -21,9 +21,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Ler arquivo JSON
         id: json
-        run: JSON_CONTENT=$(echo "./coverage.json") >> "$GITHUB_OUTPUT"
+        run: |
+          JSON_CONTENT=$(cat ./coverage.json)
+          echo "JSON_CONTENT=$JSON_CONTENT" >> $GITHUB_OUTPUT
         env:
-          COVERAGE_REQUIRED: ${{  toJSON(steps.json.outputs.JSON_CONTENT) }}
+          COVERAGE_REQUIRED: ${{ steps.json.outputs.JSON_CONTENT }}
 
       - uses: actions/checkout@main
       - name: Create comment
