@@ -22,8 +22,7 @@ jobs:
       - name: Ler arquivo JSON
         id: json
         run: |
-          JSON_CONTENT=$(cat ./coverage.json)
-          echo "JSON_CONTENT=$JSON_CONTENT" >> "$GITHUB_ENV"
+          JSON_CONTENT=$(cat ./coverage.json) >> "$GITHUB_OUTPUT"
         env:
           COVERAGE_REQUIRED: ${{ steps.json.outputs.JSON_CONTENT }}
 
