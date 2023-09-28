@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Ler arquivo JSON
         id: json
-        run: JSON_CONTENT=$(cat ./coverage.json) >> $GITHUB_OUTPUT
+        run: JSON_CONTENT=$(echo "./coverage.json") >> "$GITHUB_OUTPUT"
         env:
           COVERAGE_REQUIRED: ${{  toJSON(steps.json.outputs.JSON_CONTENT) }}
 
