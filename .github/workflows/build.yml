@@ -22,7 +22,8 @@ jobs:
       - name: Ler arquivo JSON
         id: json
         run: |
-          JSON_CONTENT=$(cat ./coverage.json) >> "$GITHUB_OUTPUT"
+          JSON_CONTENT=$(cat ./coverage.json)
+          $JSON_CONTENT >> "$GITHUB_OUTPUT"
         env:
           COVERAGE_REQUIRED: ${{ steps.json.outputs.JSON_CONTENT }}
 
