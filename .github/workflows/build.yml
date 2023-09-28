@@ -1,37 +1,29 @@
-name: Measure coverage
+name: Manual Test Coverage Comment
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
-  build:
+
+  add_comment:
     runs-on: ubuntu-latest
+
     permissions:
+      checks: write
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-          distribution: 'adopt'
-      - name: Grant execute permission to gradlew
-        run: chmod +x gradlew  # Concede permissões de execução
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
-      - name: Generate kover coverage report
-        run: ./gradlew koverXmlReportRelease
-      - name: Add coverage report to PR
-        id: kover
-        uses: mi-kas/kover-report@v1
-        with:
-          path: ${{ github.workspace }}/app/build/reports/kover/report.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: Code Coverage
-          update-comment: true
-          min-coverage-overall: 10
-          min-coverage-changed-files: 80
-          coverage-counter-type: LINE
-
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - uses: actions/checkout@main
+      - name: Create comment
+        run: sh ./scripts/ci/quality-gate-table.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
